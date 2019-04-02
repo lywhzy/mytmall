@@ -21,6 +21,6 @@ public class CategoryController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "test";
+        return "listCategory";
     }
 }
