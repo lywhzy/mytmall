@@ -12,11 +12,11 @@
     <ul class="pagination">
         <li <c:if test="${!page.hasPre}"> class="disabled"</c:if>>
             <a href="admin_category_list?page.start=0${page.param}" aria-label="Previous">
-                <span aria-hidden="true"></span>
+                <span aria-hidden="true">‹‹</span>
             </a>
         </li>
         <li <c:if test="${!page.hasPre}">class="disabled"</c:if>>
-            <a  href="?page.start=${page.start-page.count}${page.param}" aria-label="Previous" >
+            <a href="admin_category_list?page.start=${page.start-page.count}${page.param}" aria-label="Previous" >
                 <span aria-hidden="true">‹</span>
             </a>
         </li>
