@@ -11,7 +11,17 @@
 <%@include file="../include/admin/adminNavigator.jsp"%>
 
 <script>
-
+    $(function () {
+        $("#addForm").submit(function () {
+            if(!checkEmpty("name","分类名称")){
+                return false;
+            }
+            if (!checkEmpty("categoryPic","分类图片")){
+                return false;
+            }
+            return true;
+        })
+    })
 </script>
 
 <div class="workingArea">
@@ -51,7 +61,7 @@
     <div class="panel panel-warning addDiv">
         <div class="panel-heading">新增分类</div>
         <div class="panel-body">
-            <form id="addForm" action="/admin_category_list" method="post" enctype="multipart/form-data">
+            <form id="addForm" action="admin_add_category" method="post" enctype="multipart/form-data">
                 <table class="addTable">
                     <tr>
                         <td>分类名称</td>

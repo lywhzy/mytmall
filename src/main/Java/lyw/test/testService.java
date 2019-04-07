@@ -9,7 +9,7 @@ public class testService {
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         CategoryService service = (CategoryService) context.getBean(CategoryService.class);
         try {
-            System.out.println(service.listCategory().toArray());
+            //System.out.println(service.listCategory().toArray());
         } catch (Exception e) {
             e.printStackTrace();
         }

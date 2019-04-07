@@ -1,1 +1,9 @@
 springMVC映射时 快速提示的映射前加上了/  实际上是不能加的
+
+上传图片时需要在springMVC中加入CommonMultpartResolver 否则无法上传
+
+<td><input id="categoryPic" accept="image/*" type="file" name="image"></td>
+accept属性 限制上传的类型为图片
+
+keyProperty="id" useGeneratedKeys="true"
+使Insert语句增加的对象以id自增

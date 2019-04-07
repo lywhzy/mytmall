@@ -6,6 +6,6 @@
 <%@include file="WEB-INF/JSP/include/admin/adminFooter.jsp"%>
 
 
-<form action="admin_category_list">
+<form action="admin_category_list?start=0">
     <input type="submit" value="test">
 </form>

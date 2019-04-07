@@ -2,7 +2,7 @@ package lyw.util;
 
 public class Page {
     private int start;//当前页起始值
-    private int count;//每页数量
+    private int count = 5;//每页数量
     private int total;//数据总数
     private String param;
 

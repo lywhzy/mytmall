@@ -11,4 +11,10 @@
             limit #{start},#{count}
         </if>
     </select>
+    <select id="total" resultType="java.lang.Integer">
+        select count(*) from category
+    </select>
+    <insert id="addCategory" parameterType="Category" keyProperty="id" useGeneratedKeys="true"> <!-- 使主键自增 -->
+          insert into category( name ) value (#{name})
+    </insert>
 </mapper>
