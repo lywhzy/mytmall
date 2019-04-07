@@ -15,6 +15,15 @@
         select count(*) from category
     </select>
     <insert id="addCategory" parameterType="Category" keyProperty="id" useGeneratedKeys="true"> <!-- 使主键自增 -->
-          insert into category( name ) value (#{name})
+        insert into category( name ) value (#{name})
     </insert>
+    <delete id="deleteCategory" parameterType="java.lang.Integer">
+        delete from category where id=#{id}
+    </delete>
+    <select id="selectCategoryById" parameterType="java.lang.Integer" resultType="Category">
+        select * from category where id=#{id}
+    </select>
+    <update id="updateCategory" parameterType="Category">
+        update category set name=#{name} where id=#{id}
+    </update>
 </mapper>

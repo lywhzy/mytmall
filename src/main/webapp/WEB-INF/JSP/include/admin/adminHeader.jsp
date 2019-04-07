@@ -49,6 +49,18 @@
             }
             return true;
         }
+        
+        function checkDelete() {
+            $("a").click(function () {
+                var deleteLink = $(this).attr("deleteLink");
+                console.log(deleteLink);
+                if("true"==deleteLink){
+                    var confirmDelete = confirm("确认删除");
+                    if(confirmDelete) return true;
+                    else return false;
+                }
+            })
+        }
     </script>
 </head>
 <body>

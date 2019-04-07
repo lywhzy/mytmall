@@ -6,11 +6,14 @@ import lyw.util.Page;
 import lyw.util.imageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -48,6 +51,48 @@ public class CategoryController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "redirect:/admin_category_list";
+    }
+
+    @RequestMapping("/admin_delete_Category/{id}")
+    public String deleteCategory(@PathVariable(value = "id") int id,HttpSession session){
+        try {
+            categoryService.deleteCategory(id);
+            File indexfile = new File(session.getServletContext().getRealPath("img/category"));
+            File file = new File(indexfile,id+".jpg");
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/admin_category_list";
+    }
+
+    @RequestMapping("/admin_get_Category/{id}")
+    public String getCategory(@PathVariable("id") int id, Model model){
+        try {
+            model.addAttribute("c",categoryService.selectCategoryById(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "editCategory";
+    }
+
+    @RequestMapping("/admin_update_Category")
+    public String updateCategory(/*Category category,MultipartFile image,HttpSession session*/){
+//        try {
+//            categoryService.updateCategory(category);
+//            if(image!=null&&!image.isEmpty()){
+//                File indexfile = new File(session.getServletContext().getRealPath("img/category"));
+//                File file = new File(indexfile,category.getId()+".jpg");
+//                image.transferTo(file);
+//                BufferedImage bufferedImage = imageUtil.change2jpg(file);
+//                ImageIO.write(bufferedImage,"jpg",file);
+//            }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return "redirect:/admin_category_list";
     }
 }

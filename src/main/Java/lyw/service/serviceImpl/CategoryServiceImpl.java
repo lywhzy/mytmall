@@ -29,4 +29,21 @@ public class CategoryServiceImpl implements lyw.service.CategoryService {
     public void addCategory(Category category) throws Exception {
         categoryMapper.addCategory(category);
     }
+
+    @Override
+    public void deleteCategory(int id) throws Exception {
+        categoryMapper.deleteCategory(id);
+    }
+
+    @Override
+    public Category selectCategoryById(int id) throws Exception {
+
+        return categoryMapper.selectCategoryById(id);
+    }
+
+    @Override
+    public void updateCategory(Category c) throws Exception {
+        categoryMapper.updateCategory(c);
+    }
+
 }
