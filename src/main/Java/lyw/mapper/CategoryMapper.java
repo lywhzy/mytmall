@@ -1,15 +1,21 @@
 package lyw.mapper;
 
-import lyw.pojo.Category;
-import lyw.util.Page;
-
 import java.util.List;
+import lyw.pojo.Category;
+import lyw.pojo.CategoryExample;
 
 public interface CategoryMapper {
-    List<Category> list(Page page);
-    int total();
-    void addCategory(Category category);
-    void deleteCategory(int id);
-    Category selectCategoryById(int id);
-    void updateCategory(Category c);
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Category record);
+
+    int insertSelective(Category record);
+
+    List<Category> selectByExample(CategoryExample example);
+
+    Category selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(Category record);
+
+    int updateByPrimaryKey(Category record);
 }

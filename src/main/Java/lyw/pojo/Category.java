@@ -3,9 +3,7 @@ package lyw.pojo;
 public class Category {
     private Integer id;
 
-    public String getName() {
-        return name;
-    }
+    private String name;
 
     public Integer getId() {
         return id;
@@ -15,10 +13,11 @@ public class Category {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
-    private String name;
-
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 }

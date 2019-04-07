@@ -1,5 +1,7 @@
 package lyw.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lyw.pojo.Category;
 import lyw.service.CategoryService;
 import lyw.util.Page;
@@ -13,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -26,8 +27,9 @@ public class CategoryController {
     @RequestMapping("/admin_category_list")
     public String listCategory(Map<String,Object> map, Page page){
         try {
-            page.setTotal(categoryService.total());
-            List<Category> list = categoryService.listCategory(page);
+            PageHelper.offsetPage(page.getStart(),page.getCount());
+            List<Category> list = categoryService.listCategory();
+            page.setTotal((int)new PageInfo<>(list).getTotal());
             map.put("list",list);
             map.put("page",page);
         } catch (Exception e) {
@@ -67,8 +69,8 @@ public class CategoryController {
         return "redirect:/admin_category_list";
     }
 
-    @RequestMapping("/admin_get_Category/{id}")
-    public String getCategory(@PathVariable("id") int id, Model model){
+    @RequestMapping("/admin_get_Category")
+    public String getCategory(int id, Model model){
         try {
             model.addAttribute("c",categoryService.selectCategoryById(id));
         } catch (Exception e) {
@@ -78,21 +80,21 @@ public class CategoryController {
     }
 
     @RequestMapping("/admin_update_Category")
-    public String updateCategory(/*Category category,MultipartFile image,HttpSession session*/){
-//        try {
-//            categoryService.updateCategory(category);
-//            if(image!=null&&!image.isEmpty()){
-//                File indexfile = new File(session.getServletContext().getRealPath("img/category"));
-//                File file = new File(indexfile,category.getId()+".jpg");
-//                image.transferTo(file);
-//                BufferedImage bufferedImage = imageUtil.change2jpg(file);
-//                ImageIO.write(bufferedImage,"jpg",file);
-//            }
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public String updateCategory(Category category,MultipartFile image,HttpSession session){
+        try {
+            categoryService.updateCategory(category);
+            if(image!=null&&!image.isEmpty()){
+                File indexfile = new File(session.getServletContext().getRealPath("img/category"));
+                File file = new File(indexfile,category.getId()+".jpg");
+                image.transferTo(file);
+                BufferedImage bufferedImage = imageUtil.change2jpg(file);
+                ImageIO.write(bufferedImage,"jpg",file);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/admin_category_list";
     }
 }

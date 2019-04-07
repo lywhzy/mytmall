@@ -7,8 +7,7 @@ import java.util.List;
 
 
 public interface CategoryService {
-    List<Category> listCategory(Page page) throws Exception;
-    int total() throws Exception;
+    List<Category> listCategory() throws Exception;
     void addCategory(Category category) throws Exception;
     void deleteCategory(int id) throws Exception;
     Category selectCategoryById(int id)throws Exception;

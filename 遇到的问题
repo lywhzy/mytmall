@@ -7,3 +7,10 @@ accept属性 限制上传的类型为图片
 
 keyProperty="id" useGeneratedKeys="true"
 使Insert语句增加的对象以id自增
+
+在Controller里尽量少使用占位符 会在转发过程中出现不必要的错误
+
+本项目使用的是pageHelper 5.12版本 此版本在spring配置文件中配置拦截信息时 使用的并不是 pageHelper类 而是 pageInterceptor
+
+使用mubatis-generator逆向工程 生成xml，mapper，pojo时 需要加入OverlsMergeablePlugin插件 用来防止多次逆向 使代码重复
+此外 此工具会生成Example类 可用来指定以什么顺序查询

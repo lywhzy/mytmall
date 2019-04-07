@@ -13,6 +13,6 @@ public class testMybatis {
         page.setStart(0);
         page.setCount(5);
         page.setTotal(51);
-        System.out.println(mapper.list(page).toArray());
+        //System.out.println(mapper.list().toArray());
     }
 }

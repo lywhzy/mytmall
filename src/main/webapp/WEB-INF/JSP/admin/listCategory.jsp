@@ -48,7 +48,7 @@
                         <td>${item.name}</td>
                         <td><a href="/admin_category_list"><span class="glyphicon glyphicon-th-list"></span></a></td>
                         <td><a href="/admin_category_list"><span class="glyphicon glyphicon-shopping-cart"></span> </a></td>
-                        <td><a href="admin_get_Category/${item.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td><a href="admin_get_Category?id=${item.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
                         <td><a deleteLink="true" href="admin_delete_Category/${item.id}"><span class="glyphicon glyphicon-trash"></span></a></td>
                     </tr>
                 </c:forEach>

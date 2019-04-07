@@ -47,6 +47,14 @@
         <property name="dataSource" ref="datasource"/>
         <property name="typeAliasesPackage" value="lyw.pojo"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value/></property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
