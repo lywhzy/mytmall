@@ -1,6 +1,6 @@
 springMVC映射时 快速提示的映射前加上了/  实际上是不能加的
 
-上传图片时需要在springMVC中加入CommonMultpartResolver 否则无法上传
+上传图片时需要在springMVC中加入CommonMultipartResolver 否则无法上传
 
 <td><input id="categoryPic" accept="image/*" type="file" name="image"></td>
 accept属性 限制上传的类型为图片
@@ -14,3 +14,84 @@ keyProperty="id" useGeneratedKeys="true"
 
 使用mubatis-generator逆向工程 生成xml，mapper，pojo时 需要加入OverlsMergeablePlugin插件 用来防止多次逆向 使代码重复
 此外 此工具会生成Example类 可用来指定以什么顺序查询
+
+对MVC的理解:具体每个pojo 都会对应一个mapper 或是一个dao
+        但是service却不是如此对应的 service在接收controller调用的参数后 判断调用哪一个mapper 从而实现对代码复用的功能
+
+在往src目录下新增文件夹或文件的时候，target目录并不会同步更新，导致资源访问不到，这是因为ideaMAVEN项目不主动同步导致的。需要在pom.xml
+中加入相应配置
+
+在用jquery做键盘响应事件时，不能使用onkeyup 要使用keyup 虽然会报错 但忽略
+
+使用druid连接池时， 由于在mybatis映射文件中加入的多对多映射 导致连接池获取不到连接 此时把mysql驱动升级成6.*版本
+再在url中加入时区以及编码即可
+
+使用lamda表达式等jdk8特性时 需要在修改工程配置 在setting 以及project Structure中修改
+
+使用mybatis写sql时 需要传入两个以上的参数 这时候可以mapper接口的方法参数前加上param注解
+
+在web.xml配置springMVC时 转发servlet的映射路径应设为/ 而不是/* 否则jsp的识别会出现问题
+
+springMVC下载文件时遇到的问题
+    1.具体思路如下
+        1.需要得到文件的绝对路径，通过context的getRealPath方法
+        2.需要得到文件在服务器中的文件名
+        3.需要给出文件下载时的名称
+        4.通过springMVC的ResponseEntity对象来实现下载
+        5.此对象包含三个参数 文件的字节数组，响应头（Httpheader），响应状态（HttpStatus）
+    2.定义文件时文件名的路径与名称之间需要加上间隔符(File.separator)
+    3.响应头设置下载文件名，注意下载文件名需要被URLEncoder转码
+        1.由于不同浏览器的兼容问题，IE，谷歌应被上述方法转码，firefox需要把UTF-8转成iso-8859-1
+    4.响应头设置ContentType 指定以二进制格式下载文件
+    5.响应状态码设为HttpStatus.OK
+
+关于ajax异步接收数据的问题
+    使用ajax接收数据，如果要使用该数据对页面标签进行赋值，或者此ajax需要返回该数据，则必须将ajax属性设为同步 async ： false
+    且需要定义一个变量在回调函数里接受返回值 在ajax外返回（回调函数的返回并不是返回接收的数据）
+
+SpringMVC关于前台返回乱码的问题（针对ajax）
+     此问题是因为SpringMVC默认返回的iso-8859-1类型， 需要在RequestMapping的produces指定其类型
+
+
+关于用户提交数据的问题
+    用户可能会提交一些恶意信息 根据html语言规范 所以需要对用户提交上来的信息做一定处理（htmlUtils）
+
+
+关于多线程调试的问题 把断点设为thread模式即可
+
+关于@ConfigurationProperties出现的问题
+    由于该注解找不到指定的Properties文件 所以会报错
+    首先要在启动类上加上@EnableConfigurationProperties 打开自动扫描，其次要在maven依赖中加上spring-boot-configuration-processor
+
+
+关于分布式事务问题的出现与解决情况
+    1.在项目逐步扩大的情况下，难免需要将数据库分开，或者说一个项目中连接多个数据库。
+    2.当连接多个数据库时，需要多个不同的数据源。在jdbc编程中事务是与datasource绑定在一起的
+    3.当一个业务只包含一个数据库的更新操作时，只加上事务注解是不可行的，因为多数据源就有多个事务管理器，springboot无法确认究竟是用哪个事务管理器
+        解决办法 事务注解中 有transactionManager属性 指定使用哪个事务管理器
+    4.当一个业务需要在不同的数据库做更新操作时，事务的指定出现问题
+        解决办法 使用jta+atomikos解决
+
+
+springBoot 打成jar包运行 提示没有主清单属性 这是因为没有指明主方法入口
+    解决办法 在pom.xml中加入mainclass
+
+springboot 整合jpa注意事项
+    1.   2.0后yml的写法为
+        jpa:
+            hibernate:
+              ddl-auto: update
+            show-sql: true
+    2.在启动类要加上@EnableJpaRepositories     @EntityScan 扫描jpa仓库和实体
+    3.实体类中 @Entity 和@Table注解要分开写
+
+
+springboot 整合thymeleaf注意事项
+    thymeleaf导入静态文件时，需要指定动态路径，springboot默认指定的路径时static文件夹
+
+springboot 整合redis注意事项
+    导入jar包后，springboot会自动注入redisTemplate对象，但是却是<Object,Object>类型的，需要重新定义一个<String，Object>类型，且要进行json转化
+
+SpringCloud 使用feign简化远程调用代码时，在client接口中如果声明的方法有参数，需要使用@RequestParam来声明参数，否则会出错
+
+springboot 解决跨域问题 在controller上加CrossOrigin注解

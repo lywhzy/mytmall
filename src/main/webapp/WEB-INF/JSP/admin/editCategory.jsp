@@ -12,8 +12,6 @@
     })
 </script>
 
-<a href="admin_update_Category">123</a>
-
 <div class="workingArea">
     <ol class="breadcrumb">
         <li><a href="admin_category_list?start=0">所有分类</a></li>
